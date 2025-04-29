@@ -78,18 +78,6 @@ public class MenuEtudiant extends Application{
 		 	public void actionPerformed(ActionEvent e) {
 		 	}
 		 });
-		 btnNewButton.setBounds(217, 69, 154, 41);
-		 JButton btnNewButto = new JButton("Consulter mes choix");
-		 btnNewButto.addActionListener(new ActionListener() {
-		 	public void actionPerformed(ActionEvent e) {
-		 		frame.setVisible(false);
-		 		ConsultationChoix consul = new ConsultationChoix(idEtudiant);
-		 		consul.frame.setVisible(true);
-		 	     
-		 	}
-		 });
-		 btnNewButto.setBounds(217, 69, 154, 41);
-		 menu.add(btnNewButto);
 		return menu;
 	}
 

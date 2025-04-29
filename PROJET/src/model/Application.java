@@ -99,7 +99,6 @@ public class Application {
 		oublie.setCursor(new Cursor(Cursor.HAND_CURSOR));
 		oublie.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
-				JOptionPane.showMessageDialog(null, "Mot de passe oublie");
 				frame.setVisible(false);
 				FenMdpOublie nvmdp = new FenMdpOublie();
 				nvmdp.frame.setVisible(true);

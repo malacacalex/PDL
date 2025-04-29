@@ -65,20 +65,20 @@ public class FenClassique {
 
 		//Lignes de notre tableau à choix
 		Object[][]donnees = {
-				{dom.get(0).getAcronyme(), false,false},
-				{dom.get(1).getAcronyme(), false,false},
-				{"Cybersécurité des Réseaux et de l’IOT", false,false},
-				{"Big Data pour la Transformation Numérique", false,false},
-				{"Ingénieur d’Affaires : Informatique et Réseaux", false,false},
-				{"Ingénierie des Services du Numérique", false,false},
-				{"Ingénieur Finance", false,false,false,false,false},
-				{"Digitalisation, Automatisation, Robotique et Intelligence Artificielle pour l’industrie", false,false},
-				{"Énergie et Développement Durable", false,false},
-				{"Génie Électrique et Transport", false,false},
-				{"Ingénieur d’Affaires : Distribution Énergie et Signaux", false,false},
-				{"Mécatronique et Systèmes Embarqués", false,false},
-				{"Ingénierie des Systèmes Embarqués Mobiles Autonomes et Connectés", false,false},
-				{"Electronique des Systèmes pour l’Automobile et l’Aéronautique", false,false},
+				{dom.get(0).getNom(), false,false},
+				{dom.get(1).getNom(), false,false},
+				{dom.get(2).getNom(), false,false},
+				{dom.get(3).getNom(), false,false},
+				{dom.get(4).getNom(), false,false},
+				{dom.get(5).getNom(), false,false},
+				{dom.get(6).getNom(), false,false},
+				{dom.get(7).getNom(), false,false},
+				{dom.get(8).getNom(), false,false},
+				{dom.get(9).getNom(), false,false},
+				{dom.get(10).getNom(), false,false},
+				{dom.get(11).getNom(), false,false},
+				{dom.get(12).getNom(), false,false},
+				{dom.get(13).getNom(), false,false},
 
 
 		};
@@ -106,7 +106,7 @@ public class FenClassique {
 		};
 
 		JTable table = new JTable(model);
-		table.setBounds(75, 5, 450, 224);
+		table.setBounds(10, 5, 1000, 200);
 		table.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
 				//Recupere la ligne coche 
@@ -153,35 +153,46 @@ public class FenClassique {
 			}
 
 		});
+		
+		// Bouton qui va permettre de stocker les choix des etudiants dans la BDD
+        JButton btnAfficher = new JButton("Valider");
+        btnAfficher.setBounds(271, 298, 65, 21);
+        btnAfficher.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+            	
+            	ChoixBDD aj = new ChoixBDD();
+            	DominanteBDD dominante = new DominanteBDD();
+            	ArrayList<Dominante>domi= dominante.getListDom();
+                StringBuilder result = new StringBuilder("Options sélectionnées :\n");
+                for(int j = 1 ; j < model.getColumnCount();j++) {
+                for (int i = 0; i < model.getRowCount(); i++) {
+                	//Recupere les choix
+                    boolean isSelected = (boolean) model.getValueAt(i, j);
+                    //Si l'etudiant a choisi cette domminance en choix j 
+                    if (isSelected) {
+                    	System.out.println(idEtudiant);
+                    	System.out.println(domi.get(i).getidDom());
+                    	System.out.println(j);
+          
+                    	Choix choix = new Choix(dom.get(i).getidDom(),idEtudiant,j);
+                         int  d= aj.addChoix(choix);
+                    	System.out.println(d);
+                    	
+                    	
+                        result.append(model.getValueAt(i, 0)).append("\n");
+                    }
+                }
+                //JOptionPane.showMessageDialog(null, result.toString());
+            }
+                JOptionPane.showMessageDialog(null, result.toString());
+            }
+        });
+        
 
-		// Bouton pour afficher les options sélectionnées
-		JButton btnAfficher = new JButton("Valider");
-		btnAfficher.setBounds(198, 232, 65, 21);
-		btnAfficher.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				EtudiantBDD recupetu = new EtudiantBDD();
-				ArrayList<Etudiant> etu = recupetu.getListeEtudiant();
-				
-				ChoixBDD choix = new ChoixBDD();
-				Choix choixx = new Choix(domId,idEtu.getText(),choixPriorite.getText());
-				int b= choix.addChoix(choixx);
-				System.out.println(b);
-				
-				
-				StringBuilder result = new StringBuilder("Options sélectionnées :\n");
-				for (int i = 0; i < model.getRowCount(); i++) {
-					boolean isSelected = (boolean) model.getValueAt(i, 1);
-					if (isSelected) {
-						result.append(model.getValueAt(i, 0)).append("\n");
-					}
-				}
-				JOptionPane.showMessageDialog(null, result.toString());
-			}
-		});
 		tab.setLayout(null);
 
-		tab.add(btnAfficher);
 		tab.add(table);
+		tab.add(btnAfficher);
 
 
 
